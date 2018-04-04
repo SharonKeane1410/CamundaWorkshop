@@ -50,40 +50,40 @@ public class InMemoryH2Test {
         // nothing is done here, as we just want to check for exceptions during deployment
     }
 
-    @Test
-    @Deployment(resources = "twitter.bpmn")
-    public void testHappyPath() {
-//	  ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
-//    Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
-        Map<String,Object> variables = new HashMap<String, Object>();
-        variables.put("content", "Sharon");
-        ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
-    //find the task we are at
-        List<Task> tasks = processEngine().getTaskService().createTaskQuery().taskAssignee("demo").list();
-    //assert we are at the task we expect
-        Task userTask = tasks.get(0);
-        assertEquals(userTask.getName(), "Review Tweet");
-    //complete the task
-        Map<String,Object> vars = new HashMap<String, Object>();
-        vars.put("approved", "true"); // approve tweet
-        processEngine().getTaskService().complete(userTask.getId(), vars);
+//    @Test
+//    @Deployment(resources = "twitter.bpmn")
+//    public void testHappyPath() {
+////	  ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
+////    Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
+//        Map<String,Object> variables = new HashMap<String, Object>();
+//        variables.put("content", "Sharon");
+//        ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+//    //find the task we are at
+//        List<Task> tasks = processEngine().getTaskService().createTaskQuery().taskAssignee("demo").list();
+//    //assert we are at the task we expect
+//        Task userTask = tasks.get(0);
+//        assertEquals(userTask.getName(), "Review Tweet");
+//    //complete the task
+//        Map<String,Object> vars = new HashMap<String, Object>();
+//        vars.put("approved", "true"); // approve tweet
+//        processEngine().getTaskService().complete(userTask.getId(), vars);
+//
+//    // assert it completed
+//        assertThat(processInstance).isEnded();
+//    }
 
-    // assert it completed
-        assertThat(processInstance).isEnded();
-    }
-
-    @Test
-    @Deployment(resources = "twitter.bpmn")
-    public void testHappyPathQuick() { // same as the above but easier and more readable
-        Map<String,Object> variables = new HashMap<String, Object>();
-        variables.put("content", "Sharon");
-        ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
-
-        assertThat(processInstance).isWaitingAt("Task_0e5qc1f");
-        complete(task(), withVariables("approved", true));
-
-        // assert it completed
-        assertThat(processInstance).isEnded();
-    }
+//    @Test
+//    @Deployment(resources = "twitter.bpmn")
+//    public void testHappyPathQuick() { // same as the above but easier and more readable
+//        Map<String,Object> variables = new HashMap<String, Object>();
+//        variables.put("content", "Sharon");
+//        ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+//
+//        assertThat(processInstance).isWaitingAt("Task_0e5qc1f");
+//        complete(task(), withVariables("approved", true));
+//
+//        // assert it completed
+//        assertThat(processInstance).isEnded();
+//    }
 
 }

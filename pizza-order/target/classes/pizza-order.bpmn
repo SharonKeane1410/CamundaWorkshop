@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:tns="http://bpmn.io/schema/bpmn" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" expressionLanguage="http://www.w3.org/1999/XPath" id="Definitions_09vfv1n" name="" targetNamespace="http://bpmn.io/schema/bpmn" typeLanguage="http://www.w3.org/2001/XMLSchema">
+  <bpmn:process id="orderPizza" isClosed="false" isExecutable="true" name="Order Pizza" processType="None">
+    <bpmn:startEvent id="StartEvent_1" name="Order Received"/>
+    <bpmn:sequenceFlow id="SequenceFlow_04iqqer" sourceRef="StartEvent_1" targetRef="Task_0y8tqre"/>
+    <bpmn:sequenceFlow id="SequenceFlow_060rbv1" sourceRef="Task_0y8tqre" targetRef="Task_1fi345m"/>
+    <bpmn:exclusiveGateway gatewayDirection="Unspecified" id="ExclusiveGateway_1cn6ouf" name="Order apprived"/>
+    <bpmn:sequenceFlow id="SequenceFlow_08i7ilq" sourceRef="Task_1fi345m" targetRef="ExclusiveGateway_1cn6ouf"/>
+    <bpmn:sequenceFlow id="SequenceFlow_0r2me09" name="yes" sourceRef="ExclusiveGateway_1cn6ouf" targetRef="Task_0avf2em">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${true}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_1m9o3nx" name="Pizza prepared"/>
+    <bpmn:sequenceFlow id="SequenceFlow_1ovcfdv" sourceRef="Task_0avf2em" targetRef="EndEvent_1m9o3nx"/>
+    <bpmn:sequenceFlow id="SequenceFlow_04l57l9" name="no" sourceRef="ExclusiveGateway_1cn6ouf" targetRef="Task_0sc0an4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${false}]]></bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_1lxqbtj" name="Order rejected"/>
+    <bpmn:sequenceFlow id="SequenceFlow_1hjs28v" sourceRef="Task_0sc0an4" targetRef="EndEvent_1lxqbtj"/>
+    <bpmn:serviceTask activiti:exclusive="true" camunda:expression="${true}" id="Task_0y8tqre" name="Persist Order"/>
+    <bpmn:userTask activiti:exclusive="true" id="Task_1fi345m" name="Approve Order"/>
+    <bpmn:userTask activiti:exclusive="true" id="Task_0avf2em" name="Prepare Pizza"/>
+    <bpmn:serviceTask activiti:exclusive="true" camunda:expression="${true}" id="Task_0sc0an4" name="Sebd Rejection email"/>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0" id="Diagram-_1" name="New Diagram">
+    <bpmndi:BPMNPlane bpmnElement="orderPizza">
+      <bpmndi:BPMNShape bpmnElement="StartEvent_1" id="Shape-StartEvent_1">
+        <dc:Bounds height="32.0" width="32.0" x="173.0" y="102.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="ExclusiveGateway_1cn6ouf" id="Shape-ExclusiveGateway_1cn6ouf" isMarkerVisible="true">
+        <dc:Bounds height="32.0" width="32.0" x="559.0" y="95.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1m9o3nx" id="Shape-EndEvent_1m9o3nx">
+        <dc:Bounds height="32.0" width="32.0" x="809.0" y="102.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="EndEvent_1lxqbtj" id="Shape-EndEvent_1lxqbtj">
+        <dc:Bounds height="32.0" width="32.0" x="809.0" y="231.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="32.0" width="32.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_0y8tqre" id="Shape-Task_0y8tqre">
+        <dc:Bounds height="80.0" width="100.0" x="259.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_1fi345m" id="Shape-Task_1fi345m">
+        <dc:Bounds height="80.0" width="100.0" x="409.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_0avf2em" id="Shape-Task_0avf2em">
+        <dc:Bounds height="80.0" width="100.0" x="659.0" y="80.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="Task_0sc0an4" id="Shape-Task_0sc0an4">
+        <dc:Bounds height="80.0" width="100.0" x="659.0" y="209.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="80.0" width="100.0" x="0.0" y="0.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1ovcfdv" id="BPMNEdge_SequenceFlow_1ovcfdv" sourceElement="Task_0avf2em" targetElement="EndEvent_1m9o3nx">
+        <di:waypoint x="759.0" y="120.0"/>
+        <di:waypoint x="809.0" y="118.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="0.0" x="784.0" y="99.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_08i7ilq" id="BPMNEdge_SequenceFlow_08i7ilq" sourceElement="Task_1fi345m" targetElement="ExclusiveGateway_1cn6ouf">
+        <di:waypoint x="509.0" y="120.0"/>
+        <di:waypoint x="559.0" y="111.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="0.0" x="534.0" y="99.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_04iqqer" id="BPMNEdge_SequenceFlow_04iqqer" sourceElement="StartEvent_1" targetElement="Task_0y8tqre">
+        <di:waypoint x="205.0" y="118.0"/>
+        <di:waypoint x="259.0" y="120.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="0.0" x="234.0" y="99.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_0r2me09" id="BPMNEdge_SequenceFlow_0r2me09" sourceElement="ExclusiveGateway_1cn6ouf" targetElement="Task_0avf2em">
+        <di:waypoint x="591.0" y="111.0"/>
+        <di:waypoint x="659.0" y="120.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="20.0" x="624.0" y="99.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_060rbv1" id="BPMNEdge_SequenceFlow_060rbv1" sourceElement="Task_0y8tqre" targetElement="Task_1fi345m">
+        <di:waypoint x="359.0" y="120.0"/>
+        <di:waypoint x="409.0" y="120.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="0.0" x="384.0" y="99.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_04l57l9" id="BPMNEdge_SequenceFlow_04l57l9" sourceElement="ExclusiveGateway_1cn6ouf" targetElement="Task_0sc0an4">
+        <di:waypoint x="584.0" y="118.0"/>
+        <di:waypoint x="584.0" y="249.0"/>
+        <di:waypoint x="659.0" y="249.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="15.0" x="592.0" y="191.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="SequenceFlow_1hjs28v" id="BPMNEdge_SequenceFlow_1hjs28v" sourceElement="Task_0sc0an4" targetElement="EndEvent_1lxqbtj">
+        <di:waypoint x="759.0" y="249.0"/>
+        <di:waypoint x="809.0" y="247.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="12.0" width="0.0" x="784.0" y="228.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

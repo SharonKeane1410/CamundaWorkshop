@@ -1,7 +1,9 @@
 package camunda.training.ericsson.nonarquillian;
 
 import org.apache.ibatis.logging.LogFactory;
+import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.extension.process_test_coverage.junit.rules.TestCoverageProcessEngineRuleBuilder;
 import org.camunda.bpm.engine.test.Deployment;
@@ -11,6 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.camunda.bpm.engine.test.assertions.ProcessEngineTests.*;
@@ -52,11 +55,25 @@ public class InMemoryH2Test {
     public void testHappyPath() {
 //	  ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 //    Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
+//
+//        Map<String, Object> variables = new HashMap<String, Object>();
+//        variables.put("content", "Sharon");
+//        variables.put("approved",true);
+//
 
-        Map<String, Object> variables = new HashMap<String, Object>();
-        variables.put("content", "Sharon");
-        variables.put("approved",true);
+        Map<String,Object> variables = new HashMap<String, Object>();
+        variables.put("approved", false);
         ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+
+
+        TaskService taskService = processEngine().getTaskService();
+        List<Task> personalTaskList = taskService.createTaskQuery()
+                .taskAssignee("demo").list();
+
+        Task task = personalTaskList.get(0);
+
+
+        taskService.complete(task.getId(), variables);
 
         assertThat(processInstance).isEnded();
 

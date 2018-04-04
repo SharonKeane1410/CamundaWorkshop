@@ -1,4 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: camunda.training.ericsson.nonarquillian.InMemoryH2Test
 -------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.313 sec - in camunda.training.ericsson.nonarquillian.InMemoryH2Test
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.025 sec <<< FAILURE! - in camunda.training.ericsson.nonarquillian.InMemoryH2Test
+testHappyPath(camunda.training.ericsson.nonarquillian.InMemoryH2Test)  Time elapsed: 0.273 sec  <<< ERROR!
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at camunda.training.ericsson.nonarquillian.InMemoryH2Test.testHappyPath(InMemoryH2Test.java:69)
+

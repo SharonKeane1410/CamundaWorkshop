@@ -6,24 +6,24 @@
     <bpmn:exclusiveGateway id="ExclusiveGateway_18el5lo" name="is approved" />
     <bpmn:sequenceFlow id="SequenceFlow_0fy5e03" sourceRef="Task_0e5qc1f" targetRef="ExclusiveGateway_18el5lo" />
     <bpmn:sequenceFlow id="SequenceFlow_1flhhii" name="Yes" sourceRef="ExclusiveGateway_18el5lo" targetRef="Task_0ixnngx">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${approved}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEvent_0p83i09" name="Tweet Published" />
     <bpmn:sequenceFlow id="SequenceFlow_0js0e10" sourceRef="Task_0ixnngx" targetRef="EndEvent_0p83i09" />
     <bpmn:task id="Task_18hzv0i" name="Fire Employee" activiti:exclusive="true" />
     <bpmn:sequenceFlow id="SequenceFlow_0n4fexn" name="No" sourceRef="ExclusiveGateway_18el5lo" targetRef="Task_18hzv0i">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${not approved}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:endEvent id="EndEvent_18l2114" name="Tweet Rejected" />
     <bpmn:sequenceFlow id="SequenceFlow_1xib5cy" sourceRef="Task_18hzv0i" targetRef="EndEvent_18l2114" />
-    <bpmn:manualTask id="Task_0e5qc1f" name="Review">
-      <bpmn:incoming>SequenceFlow_1be7by9</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0fy5e03</bpmn:outgoing>
-    </bpmn:manualTask>
     <bpmn:serviceTask id="Task_0ixnngx" name="Publilsh" camunda:class="camunda.training.ericsson.CreateTweetDelegate">
       <bpmn:incoming>SequenceFlow_1flhhii</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0js0e10</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:userTask id="Task_0e5qc1f" name="Review" camunda:assignee="demo" camunda:candidateGroups="management">
+      <bpmn:incoming>SequenceFlow_1be7by9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0fy5e03</bpmn:outgoing>
+    </bpmn:userTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="Diagram-_1" name="New Diagram" documentation="background=#FFFFFF;count=1;horizontalcount=1;orientation=0;width=842.4;height=1195.2;imageableWidth=832.4;imageableHeight=1185.2;imageableX=5.0;imageableY=5.0">
     <bpmndi:BPMNPlane bpmnElement="twitter">
@@ -57,7 +57,7 @@
           <dc:Bounds x="0" y="0" width="32" height="32" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0fy5e03" bpmnElement="SequenceFlow_0fy5e03" sourceElement="ManualTask_0k7augr_di" targetElement="Shape-ExclusiveGateway_18el5lo">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_0fy5e03" bpmnElement="SequenceFlow_0fy5e03" sourceElement="UserTask_0kpt44r_di" targetElement="Shape-ExclusiveGateway_18el5lo">
         <di:waypoint x="359" y="120" />
         <di:waypoint x="409" y="111" />
         <bpmndi:BPMNLabel>
@@ -86,7 +86,7 @@
           <dc:Bounds x="634" y="209" width="0" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1be7by9" bpmnElement="SequenceFlow_1be7by9" sourceElement="Shape-StartEvent_1" targetElement="ManualTask_0k7augr_di">
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1be7by9" bpmnElement="SequenceFlow_1be7by9" sourceElement="Shape-StartEvent_1" targetElement="UserTask_0kpt44r_di">
         <di:waypoint x="205" y="118" />
         <di:waypoint x="259" y="120" />
         <bpmndi:BPMNLabel>
@@ -100,11 +100,11 @@
           <dc:Bounds x="589" y="98" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ManualTask_0k7augr_di" bpmnElement="Task_0e5qc1f">
-        <dc:Bounds x="259" y="80" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1izu5sn_di" bpmnElement="Task_0ixnngx">
         <dc:Bounds x="509" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_0kpt44r_di" bpmnElement="Task_0e5qc1f">
+        <dc:Bounds x="259" y="80" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

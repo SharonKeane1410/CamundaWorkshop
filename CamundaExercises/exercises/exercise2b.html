@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  
+  <meta charset="utf-8" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <meta name="viewport" content="width=device-width" />
+
+  <meta name="description" content="Lab instructions for the Camunda BPM for Java Developers training" />
+  <meta name="keywords" content="camunda, open source, free, Apache License, Apache 2.0, workflow, BPMN, BPMN 2.0, camunda.org, bpm, BPMS, engine, platform, process, automation, community, documentation" />
+  <meta name="author" content="Camunda Consulting" />
+
+  <title>Deploy the Prototype on Camunda BPM</title>
+
+  <meta name="generator" content="Hugo 0.16-camunda" />
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body class="">
+
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-container">
+    <div class="navbar-header">
+      <a href="./index.html">
+        <span class="brand-logo"></span>
+        <span class="brand-name">Camunda</span>
+        <span class="site-name">BPM for Java Developers</span>
+      </a>
+    </div>
+
+    
+
+    <button class="site-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    
+
+    <ul class="external-menu">
+      <li class="external"><a href="https://docs.camunda.org" target="_blank">docs.camunda.org</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="site-menu">
+  
+
+<ul class="site-menu-items">
+  
+  
+  <li >
+      <a href="./exercise0.html" >Group Exercise 0</a>
+  </li>
+  
+  <li >
+      <a href="./exercise1.html" >Exercise 1</a>
+  </li>
+  
+  <li >
+      <a href="./exercise2a.html" >Exercise 2a</a>
+  </li>
+  
+  <li  class="active">
+      <a href="./exercise2b.html" >Exercise 2b</a>
+  </li>
+  
+  <li >
+      <a href="./exercise3a.html" >Exercise 3a</a>
+  </li>
+  
+  <li >
+      <a href="./exercise3b.html" >Exercise 3b</a>
+  </li>
+  
+  <li >
+      <a href="./exercise4.html" >Exercise 4</a>
+  </li>
+  
+  <li >
+      <a href="./exercise5.html" >Exercise 5</a>
+  </li>
+  
+  <li >
+      <a href="./exercise6.html" >Exercise 6</a>
+  </li>
+  
+  <li >
+      <a href="./exercise7.html" >Exercise 7</a>
+  </li>
+  
+  <li >
+      <a href="./exercise8.html" >Exercise 8</a>
+  </li>
+  
+  <li >
+      <a href="./exercise9.html" >Exercise 9</a>
+  </li>
+  
+</ul>
+
+
+
+
+</div>
+
+
+<div class="page-wrapper">
+
+
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="col-xs-12 content-header">
+      <h1 class="page-title">Deploy the Prototype on Camunda BPM</h1>
+    </div>
+
+    <div class="col-xs-12 content-text">
+      
+
+<h3 id="goal">Goal</h3>
+
+<p>The goal of this lab is to make your Twitter QA process executable
+and run it on the Camunda BPM platform installed on your machine.</p>
+
+<h3 id="short-description">Short description</h3>
+
+<ul>
+<li>Fill all required properties in the property panel of the Camunda Modeler to make the process executable. Model the services as script task with a script just print something to the console. Set the candidate group to <code>management</code> and model the conditions on the sequence flows as <code>approved</code> or <code>not approved</code>.</li>
+<li>Build the process application and deploy it to the wildfly server.</li>
+<li>Try your process in the tasklist filling the generic forms.</li>
+</ul>
+
+<h3 id="detailed-steps">Detailed steps</h3>
+
+<ol>
+<li>Set the candidate group of the user task to <code>management</code>.</li>
+<li>Set the conditions of the outgoing sequence flows of the exclusive gateway to <code>#{approved}</code> and <code>#{not approved}</code>.</li>
+<li>Morph the automated tasks into script tasks, set their script language to <code>JavaScript</code> and their script to: <code>print('Hello World!\n');</code></li>
+<li>Now deploy the process to Camunda BPM: Right-click on the Eclipse project and select <code>Run As -&gt; Maven build</code>. Then add the goals <code>clean wildfly:deploy</code> and press <code>Run</code>.</li>
+<li>After the build is finished, you can start your process using Camunda Tasklist <a href="http://localhost:8080/camunda/app/tasklist/" target="_blank">localhost:8080/camunda/app/tasklist/</a>.</li>
+<li>Fill the generic forms and walk through your process.</li>
+</ol>
+
+    </div>
+  </div>
+</div>
+
+<div class="page-toc">
+  <h3>On this Page:</h3>
+  <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#goal">Goal</a></li>
+<li><a href="#short-description">Short description</a></li>
+<li><a href="#detailed-steps">Detailed steps</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+
+
+    
+    <footer class="page-footer">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <p class="pull-right">
+            <a href="#" target="_self">Back to top</a>
+          </p>
+
+          <p>
+            <a href="http://camunda.org">camunda.org</a> and <a href="https://docs.camunda.org">docs.camunda.org</a> are part of camunda BPM
+            <span class="splitter">|</span>
+            Built by <a href="http://www.camunda.com">Camunda Consulting</a> &mdash; <a href="http://www.camunda.org/privacy.html">Privacy Statement</a> &mdash; camunda Services GmbH &copy; 2015-2018
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+  <script type="text/javascript" src="js/docs.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+    _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+    _gaq.push(['_setAccount', 'UA-39060941-1']);
+    _gaq.push(['_setDomainName', 'camunda.org']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,6 @@
+--------------- BEGIN CAMUNDA BPM LICENSE KEY ---------------
+QXt117Lq1RWutM2GLuS7kIPfxnOR1gjYqHdZAiQq29M06W+g9QedZcepD9WW/
+GGcQwPUDldNpoQSfTZoe4mL8By22qYuUSWP668uSowKg3IVJoZkS2IgBL1TTz
+Z2xu0nMf28zx6TtbO0noNVU1j/Bht2egi+SSnk/TT/smYnTrU=;
+athloneeric;2018-04-10
+---------------  END CAMUNDA BPM LICENSE KEY  ---------------

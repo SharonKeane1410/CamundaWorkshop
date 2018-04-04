@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  
+  <meta charset="utf-8" />
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+  <meta name="viewport" content="width=device-width" />
+
+  <meta name="description" content="Lab instructions for the Camunda BPM for Java Developers training" />
+  <meta name="keywords" content="camunda, open source, free, Apache License, Apache 2.0, workflow, BPMN, BPMN 2.0, camunda.org, bpm, BPMS, engine, platform, process, automation, community, documentation" />
+  <meta name="author" content="Camunda Consulting" />
+
+  <title>Replace User Task by Business Rules Task</title>
+
+  <meta name="generator" content="Hugo 0.16-camunda" />
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+  <link rel="stylesheet" href="css/docs.css">
+</head>
+<body class="">
+
+<nav class="navbar navbar-fixed-top">
+  <div class="navbar-container">
+    <div class="navbar-header">
+      <a href="./index.html">
+        <span class="brand-logo"></span>
+        <span class="brand-name">Camunda</span>
+        <span class="site-name">BPM for Java Developers</span>
+      </a>
+    </div>
+
+    
+
+    <button class="site-menu-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    
+
+    <ul class="external-menu">
+      <li class="external"><a href="https://docs.camunda.org" target="_blank">docs.camunda.org</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="site-menu">
+  
+
+<ul class="site-menu-items">
+  
+  
+  <li >
+      <a href="./exercise0.html" >Group Exercise 0</a>
+  </li>
+  
+  <li >
+      <a href="./exercise1.html" >Exercise 1</a>
+  </li>
+  
+  <li >
+      <a href="./exercise2a.html" >Exercise 2a</a>
+  </li>
+  
+  <li >
+      <a href="./exercise2b.html" >Exercise 2b</a>
+  </li>
+  
+  <li >
+      <a href="./exercise3a.html" >Exercise 3a</a>
+  </li>
+  
+  <li >
+      <a href="./exercise3b.html" >Exercise 3b</a>
+  </li>
+  
+  <li >
+      <a href="./exercise4.html" >Exercise 4</a>
+  </li>
+  
+  <li >
+      <a href="./exercise5.html" >Exercise 5</a>
+  </li>
+  
+  <li >
+      <a href="./exercise6.html" >Exercise 6</a>
+  </li>
+  
+  <li >
+      <a href="./exercise7.html" >Exercise 7</a>
+  </li>
+  
+  <li >
+      <a href="./exercise8.html" >Exercise 8</a>
+  </li>
+  
+  <li  class="active">
+      <a href="./exercise9.html" >Exercise 9</a>
+  </li>
+  
+</ul>
+
+
+
+
+</div>
+
+
+<div class="page-wrapper">
+
+
+<div class="page-content">
+  <div class="container-fluid">
+    <div class="col-xs-12 content-header">
+      <h1 class="page-title">Replace User Task by Business Rules Task</h1>
+    </div>
+
+    <div class="col-xs-12 content-text">
+      
+
+<h3 id="goal">Goal</h3>
+
+<p>In this lab you should make your business process for tweet approval to a fully automated process. For this you should change the review of the tweet to a business rules task and judge the tweet with rules modeled in DMN (Decision Model and Notation).</p>
+
+<h3 id="short-description">Short description</h3>
+
+<ul>
+<li>Create a decision table with rule to decide about approvement and rejection of tweets</li>
+<li>Save the decision table in your process application.</li>
+<li>Write a test methods to test the decision table.</li>
+<li>Integrate the decison table with a business rule task into your process and test the process under JUnit.</li>
+<li>Deploy the process application and run the process in the task list.</li>
+</ul>
+
+<h3 id="detailed-steps">Detailed steps</h3>
+
+<ol>
+<li>Open the a new DMN diagram in the Camunda Modeler.</li>
+<li>Fill the table with the informations from the buiness user.
+
+<ol>
+<li>Name the table.</li>
+<li>Name the input and output columns. Use content and email as input.</li>
+<li>Add some rules to accept or reject rules. For example &lsquo;camunda can be published&rsquo;, &lsquo;tweets by &ldquo;jakob.freund@camunda.org&rdquo; can be published&rsquo;, &lsquo;tweets by john.doe@camunda.com must be rejected&rsquo;, &lsquo;Jim may not be mentioned on Twitter&rsquo;, &hellip;<br /></li>
+</ol></li>
+<li>Switch to the advanced mode.</li>
+<li>Fill the decision id and the input and output parameters.</li>
+<li>Save the diagram in <code>src/main/resources</code>.</li>
+<li>Add a test method to test the decision table to your JUnit test.</li>
+<li>Integrate the decision table into your process diagram: Morph the review task to a business rules task. Fill the properties to reference your DMN diagram. The decision result should be mapped as <code>singleEntry</code>.</li>
+<li>Adjust your JUnit test to check the process flow with your rules. Add the table.dmn as deployment resource. Remark: You can deploy more than one resource at a time with <code>@Deployment(resources = {&quot;process.bpmn&quot;, &quot;table.dmn&quot;})</code>.</li>
+<li>Deploy the app to your application server with <code>mvn clean wildfly:deploy</code>.</li>
+<li>Run the process in the task list.</li>
+</ol>
+
+<h4 id="improvements">Improvements</h4>
+
+<ol>
+<li>Use juel as expressionLanguage for input rule. You can change it with right click on the cell.</li>
+<li>use <code>boolean contains(CharSequence s)</code> method of <code>String</code> inside juel expression: The rule entry for &ldquo;tweet containing &lsquo;Camunda&rsquo; can be published&rdquo; is: <code>content.contains(&quot;Camunda&quot;)</code></li>
+</ol>
+
+    </div>
+  </div>
+</div>
+
+<div class="page-toc">
+  <h3>On this Page:</h3>
+  <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#goal">Goal</a></li>
+<li><a href="#short-description">Short description</a></li>
+<li><a href="#detailed-steps">Detailed steps</a>
+<ul>
+<li><a href="#improvements">Improvements</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+</div>
+
+
+    
+    <footer class="page-footer">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <p class="pull-right">
+            <a href="#" target="_self">Back to top</a>
+          </p>
+
+          <p>
+            <a href="http://camunda.org">camunda.org</a> and <a href="https://docs.camunda.org">docs.camunda.org</a> are part of camunda BPM
+            <span class="splitter">|</span>
+            Built by <a href="http://www.camunda.com">Camunda Consulting</a> &mdash; <a href="http://www.camunda.org/privacy.html">Privacy Statement</a> &mdash; camunda Services GmbH &copy; 2015-2018
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+  <script type="text/javascript" src="js/docs.js"></script>
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    var pluginUrl = '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+    _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+    _gaq.push(['_setAccount', 'UA-39060941-1']);
+    _gaq.push(['_setDomainName', 'camunda.org']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>
+

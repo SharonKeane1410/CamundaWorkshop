@@ -55,28 +55,35 @@ public class InMemoryH2Test {
     public void testHappyPath() {
 //	  ProcessInstance processInstance = processEngine().getRuntimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY);
 //    Now: Drive the process by API and assert correct behavior by camunda-bpm-assert
-//
-//        Map<String, Object> variables = new HashMap<String, Object>();
-//        variables.put("content", "Sharon");
-//        variables.put("approved",true);
-//
-
         Map<String,Object> variables = new HashMap<String, Object>();
-        variables.put("approved", false);
+        variables.put("content", "Sharon");
+        ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
+    //find the task we are at
+        List<Task> tasks = processEngine().getTaskService().createTaskQuery().taskAssignee("demo").list();
+    //assert we are at the task we expect
+        Task userTask = tasks.get(0);
+        assertEquals(userTask.getName(), "Review Tweet");
+    //complete the task
+        Map<String,Object> vars = new HashMap<String, Object>();
+        vars.put("approved", "true"); // approve tweet
+        processEngine().getTaskService().complete(userTask.getId(), vars);
+
+    // assert it completed
+        assertThat(processInstance).isEnded();
+    }
+
+    @Test
+    @Deployment(resources = "twitter.bpmn")
+    public void testHappyPathQuick() { // same as the above but easier and more readable
+        Map<String,Object> variables = new HashMap<String, Object>();
+        variables.put("content", "Sharon");
         ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
 
+        assertThat(processInstance).isWaitingAt("Task_0e5qc1f");
+        complete(task(), withVariables("approved", true));
 
-        TaskService taskService = processEngine().getTaskService();
-        List<Task> personalTaskList = taskService.createTaskQuery()
-                .taskAssignee("demo").list();
-
-        Task task = personalTaskList.get(0);
-
-
-        taskService.complete(task.getId(), variables);
-
+        // assert it completed
         assertThat(processInstance).isEnded();
-
     }
 
 }

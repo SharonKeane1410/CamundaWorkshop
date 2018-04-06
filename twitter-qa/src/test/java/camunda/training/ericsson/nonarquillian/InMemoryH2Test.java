@@ -52,7 +52,7 @@ public class InMemoryH2Test {
 
     @Test
     @Deployment(resources = "twitter.bpmn")
-    public void testTweetApproved() { // same as the above but easier and more readable
+    public void testTweetApproved() {
         Map<String,Object> variables = new HashMap<String, Object>();
         variables.put("content", "Hello, this is Sharon ");
         ProcessInstance processInstance =  runtimeService().startProcessInstanceByKey(PROCESS_DEFINITION_KEY, variables);
